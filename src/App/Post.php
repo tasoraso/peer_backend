@@ -4,7 +4,6 @@ namespace Fawaz\App;
 
 use DateTime;
 use Fawaz\Filter\PeerInputFilter;
-use Fawaz\config\constants\ConstantsConfig;
 
 class Post
 {
@@ -127,13 +126,8 @@ class Post
             ],
             'title' => [
                 'required' => true,
-                'filters' => [['name' => 'StringTrim']],
                 'validators' => [
-                    ['name' => 'StringLength', 'options' => [
-                        'min' => ConstantsConfig::post()['TITLE']['MIN_LENGTH'],
-                        'max' => ConstantsConfig::post()['TITLE']['MAX_LENGTH'],
-                        'errorCode' => 30210
-                    ]],
+                    ['name' => 'validatePosTitle'],
                     ['name' => 'isString'],
                 ],
             ],
@@ -149,32 +143,21 @@ class Post
             'media' => [
                 'required' => true,
                 'validators' => [
-                    ['name' => 'StringLength', 'options' => [
-                        'min' => 30,
-                        'max' => 1000,
-                    ]],
+                    ['name' => 'validatePostMedia'],
                     ['name' => 'isString'],
                 ],
             ],
             'cover' => [
                 'required' => false,
                 'validators' => [
-                    ['name' => 'StringLength', 'options' => [
-                        'min' => 0,
-                        'max' => 1000,
-                    ]],
+                    ['name' => 'validatePostMedia'],
                     ['name' => 'isString'],
                 ],
             ],
             'mediadescription' => [
                 'required' => false,
-                'filters' => [['name' => 'StringTrim']],
                 'validators' => [
-                    ['name' => 'StringLength', 'options' => [
-                        'min' => ConstantsConfig::post()['MEDIADESCRIPTION']['MIN_LENGTH'],
-                        'max' => ConstantsConfig::post()['MEDIADESCRIPTION']['MAX_LENGTH'],
-                        'errorCode' => 30263
-                    ]],
+                    ['name' => 'validateMediaDescription'],
                     ['name' => 'isString'],
                 ],
             ],

@@ -660,7 +660,7 @@ class PeerInputFilter
         $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 
         if (strlen($value) < 2 || strlen($value) > 53) {
-            $this->errors['tag'][] = 30103;
+            $this->errors['tag'][] = 30211;
             return false;
         }
 
@@ -715,51 +715,51 @@ class PeerInputFilter
         return true;
     }
 
-	protected function validateResetToken(string $value, array $options = []): bool
-	{
-		if ($value === '') {
-			$this->errors['reset_token'][] = 'Reset token is required.';
-			return false;
-		}
+    protected function validateResetToken(string $value, array $options = []): bool
+    {
+        if ($value === '') {
+            $this->errors['reset_token'][] = 'Reset token is required.';
+            return false;
+        }
 
-		$value = trim($value);
-		$value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        $value = trim($value);
+        $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 
-		if (strlen($value) !== 64) {
-			$this->errors['reset_token'][] = 'Reset token must be exactly 64 characters.';
-			return false;
-		}
+        if (strlen($value) !== 64) {
+            $this->errors['reset_token'][] = 'Reset token must be exactly 64 characters.';
+            return false;
+        }
 
-		if (!preg_match('/^[a-f0-9]{64}$/i', $value)) {
-			$this->errors['reset_token'][] = 'Invalid reset token format.';
-			return false;
-		}
+        if (!preg_match('/^[a-f0-9]{64}$/i', $value)) {
+            $this->errors['reset_token'][] = 'Invalid reset token format.';
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	protected function validateActivationToken(string $value, array $options = []): bool
-	{
-		if ($value === '') {
-			$this->errors['activation_token'][] = 'Activation token is required.';
-			return false;
-		}
+    protected function validateActivationToken(string $value, array $options = []): bool
+    {
+        if ($value === '') {
+            $this->errors['activation_token'][] = 'Activation token is required.';
+            return false;
+        }
 
-		$value = trim($value);
-		$value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        $value = trim($value);
+        $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 
-		if (strlen($value) !== 64) {
-			$this->errors['activation_token'][] = 'Activation token must be exactly 64 characters.';
-			return false;
-		}
+        if (strlen($value) !== 64) {
+            $this->errors['activation_token'][] = 'Activation token must be exactly 64 characters.';
+            return false;
+        }
 
-		if (!preg_match('/^[a-f0-9]{64}$/i', $value)) {
-			$this->errors['activation_token'][] = 'Invalid activation token format.';
-			return false;
-		}
+        if (!preg_match('/^[a-f0-9]{64}$/i', $value)) {
+            $this->errors['activation_token'][] = 'Invalid activation token format.';
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
     protected function validateImage(string $imagePath, array $options = []): bool
     {
@@ -806,6 +806,60 @@ class PeerInputFilter
                 $this->errors['image'][] = 21521;
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    protected function validatePostMedia(string $value, array $options = []): bool
+    {
+        if ($value === '') {
+            $this->errors['media'][] = 30101; // renew responsecode for media & cover
+            return false;
+        }
+
+        $value = trim($value);
+        $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+
+        if (strlen($value) < 0 || strlen($value) > 1000) {
+            $this->errors['media'][] = 30210;
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function validatePosTitle(string $value, array $options = []): bool
+    {
+        if ($value === '') {
+            $this->errors['Postitle'][] = 30101; // renew responsecode post title
+            return false;
+        }
+
+        $value = trim($value);
+        $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+
+        if (strlen($value) < 2 || strlen($value) > 63) {
+            $this->errors['Postitle'][] = 30210;
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function validateMediaDescription(string $value, array $options = []): bool
+    {
+        if ($value === '') {
+            $this->errors['mediadescription'][] = 30101; // renew responsecode
+            return false;
+        }
+
+        $value = trim($value);
+        $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+
+        if (strlen($value) < 3 || strlen($value) > 500) {
+            $this->errors['mediadescription'][] = 30210;
+            return false;
         }
 
         return true;
